@@ -6,10 +6,11 @@ def send_email():
     sender_email = "myautomatedmachine@gmail.com"  # Enter your address
     receiver_email = "prathic44@gmail.com" # Enter receiver address
     password = '?r!+H-b.9QMZ@}D:w-b$3?{D777pM;'
-    message = """\
+    message =     """\
     Subject: Hi there
 
     This message is sent from Python."""
+    
     # Create a secure SSL context
     context = ssl.create_default_context()
 
@@ -19,8 +20,5 @@ def send_email():
         # TODO: Send email here
 
 
-#print(len(spans))
-def hello():
-    print('hello')
 if __name__ == '__main__':
-    hello()
+    send_email()
