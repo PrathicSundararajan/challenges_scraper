@@ -1,11 +1,30 @@
 import smtplib, ssl
+from configparser import ConfigParser
+
+
+path_config = "config.ini"
+
+def loading_config_info(config_path):
+    #Read config.ini file
+    config_object = ConfigParser()
+    config_object.read(config_path)
+
+    #Get the password
+    sender_info = config_object["Sender"]
+    reciever_info = config_object["Receiver"]
+
+
+    username = str(sender_info['email'])
+    pwd = str(sender_info['password'])
+    target = str(reciever_info['email'])
+    return username, pwd, target
 
 def send_email():
     port = 465  # For SSL
     smtp_server = "smtp.gmail.com"
-    sender_email = "myautomatedmachine@gmail.com"  # Enter your address
-    receiver_email = "prathic44@gmail.com" # Enter receiver address
-    password = '?r!+H-b.9QMZ@}D:w-b$3?{D777pM;'
+    sender_email = username  # Enter your address
+    receiver_email = target # Enter receiver address
+    password = pwd
     message =     """\
     Subject: Hi there
 
@@ -20,5 +39,7 @@ def send_email():
         # TODO: Send email here
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':    
+    
+    username, pwd, target = loading_config_info(path_config)
     send_email()
