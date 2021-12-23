@@ -1,3 +1,4 @@
 *.ini
 resources/*
 config_creator.py
+.DS_Store

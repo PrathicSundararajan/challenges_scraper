@@ -19,7 +19,7 @@ def loading_config_info(config_path):
     target = str(reciever_info['email'])
     return username, pwd, target
 
-def send_email():
+def send_email(username, pwd, target):
     port = 465  # For SSL
     smtp_server = "smtp.gmail.com"
     sender_email = username  # Enter your address
@@ -40,6 +40,6 @@ def send_email():
 
 
 if __name__ == '__main__':    
-    
+    print(path_config)
     username, pwd, target = loading_config_info(path_config)
-    send_email()
+    send_email(username, pwd, target)
