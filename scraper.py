@@ -57,7 +57,8 @@ def scraping_helper():
     option.add_argument('--headless')
     option.add_argument('--no-sandbox')
     option.add_argument('--disable-dev-sh-usage')
-    driver = webdriver.Chrome('/usr/local/bin/chromedriver', options=option)
+    option.binary_location = '/usr/bin/google-chrome'
+    driver = webdriver.Chrome('/usr/bin/chromedriver', options=option)
     page = driver.get('https://www.challenge.gov/') # Getting page HTML through request
     soup = BeautifulSoup(driver.page_source, 'html.parser') # Parsing content using beautifulsoup
     chall_titles = soup.select("section div.cards div.challenge-tile.card p.challenge-tile__title.test") # Selecting all of the anchors with titles
@@ -198,6 +199,9 @@ def send_email(subject, text, html):
 
   #text, html = create_text_html()
 
+  print(text)
+  print(type(text))
+  
   # Turn these into plain/html MIMEText objects
   part1 = MIMEText(text, "plain")
   part2 = MIMEText(html, "html")
@@ -216,8 +220,9 @@ def send_email(subject, text, html):
 if __name__ == '__main__':
     resources_dir = 'resources/'
     path_config = "config.ini"
-
+    print('Entering main method')
     all_challenge_info = scrape_info(printed = False)    
+    print('Done Scraping')
     all_old_files = reading_old_files(resources_dir)
     old_challenges, old_challenge_file = getting_old_challenges(all_old_files, resources_dir)
     changes_found = analyzing_changes(old_challenges,all_challenge_info)
@@ -230,6 +235,5 @@ if __name__ == '__main__':
         #saving_json(resources_dir, all_challenge_info)
     subject, text, html = generate_text(changes_found, all_challenge_info)
     send_email(subject, text, html)
-    
-
+    print('Completed')
     
