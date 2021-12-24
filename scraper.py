@@ -1,5 +1,6 @@
 #TODO: failsafes condition if nothing is pulled 
 
+import unicodedata
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -198,10 +199,9 @@ def send_email(subject, text, html):
   message["To"] = receiver_email
 
   #text, html = create_text_html()
-
-  print(text)
-  print(type(text))
+  text = unicodedata.normalize('NFKD',text).encode('ascii','ignore')
   
+  html = unicodedata.normalize('NFKD',html).encode('ascii','ignore')
   # Turn these into plain/html MIMEText objects
   part1 = MIMEText(text, "plain")
   part2 = MIMEText(html, "html")
@@ -226,6 +226,7 @@ if __name__ == '__main__':
     all_old_files = reading_old_files(resources_dir)
     old_challenges, old_challenge_file = getting_old_challenges(all_old_files, resources_dir)
     changes_found = analyzing_changes(old_challenges,all_challenge_info)
+    print(old_challenges)
     print('Looking at file: ', old_challenge_file)
     if (len(changes_found.keys()) == 1 and changes_found['change'] == []):
         print('No Change')
