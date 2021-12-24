@@ -113,9 +113,12 @@ def process_date_str(raw_date_str):
     ##days_to_challenge_date = days_between(date_challenge, date_now)
     return date_challenge, active
 
-def generate_text(changes_found, all_challenge_info):
-    num_chall_added = len(changes_found['add'])
-    num_chall_changes = len(changes_found['change'])
+def generate_text(changes_found, all_challenge_info, changes_bool):
+    num_chall_added = 0
+    num_chall_changes = 0
+    if changes_bool:
+        num_chall_added = len(changes_found['add'])
+        num_chall_changes = len(changes_found['change'])
     tot_num_challs = len(all_challenge_info.keys())
     #print(tot_num_challs)
     #print(all_challenge_info)
@@ -129,11 +132,11 @@ def generate_text(changes_found, all_challenge_info):
         <th>Date</th>
         <th>Active</th>
       </tr> \n"""
+    print('Tot num keys', len(all_challenge_info.keys()))
     for count, each in enumerate(all_challenge_info.keys()):
         if each == 'change_log':
-            break
+            continue
         curr_chall = all_challenge_info[each]
-        #print(curr_chall)
         text2 += " " + str(count + 1) + " " + curr_chall['Title'] + " " + curr_chall['Agency'] + " " + curr_chall['Tagline'] + " " + curr_chall['Date'] + " " + str(curr_chall['Active']) + "\n" 
         html2 += "<tr> <td>" + str(count+1) + "</td> <td> <a href=" + curr_chall['Reference'] + ">" + curr_chall['Title'] + " </a> </td> <td>" + curr_chall['Agency'] + "</td> <td>" + curr_chall['Tagline'] + "</td> <td>" + curr_chall['Date'] + "</td> <td>" + str(curr_chall['Active']) + "</td> </tr> \n" 
     html2 += "</table> "
@@ -220,21 +223,20 @@ def send_email(subject, text, html):
 if __name__ == '__main__':
     resources_dir = 'resources/'
     path_config = "config.ini"
-    print('Entering main method')
     all_challenge_info = scrape_info(printed = False)    
-    print('Done Scraping')
     all_old_files = reading_old_files(resources_dir)
     old_challenges, old_challenge_file = getting_old_challenges(all_old_files, resources_dir)
     changes_found = analyzing_changes(old_challenges,all_challenge_info)
-    print(old_challenges)
     print('Looking at file: ', old_challenge_file)
     if (len(changes_found.keys()) == 1 and changes_found['change'] == []):
         print('No Change')
+        changes_bool = False
     else: 
         print('Saved New List of Challenges')
         all_challenge_info['change_log'] = changes_found
-        #saving_json(resources_dir, all_challenge_info)
-    subject, text, html = generate_text(changes_found, all_challenge_info)
+        changes_bool = True
+        saving_json(resources_dir, all_challenge_info)
+    subject, text, html = generate_text(changes_found, all_challenge_info, changes_bool)
     send_email(subject, text, html)
     print('Completed')
     
