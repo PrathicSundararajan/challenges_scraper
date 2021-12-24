@@ -1,6 +1,6 @@
 alabaster==0.7.12
-anaconda-client @ file:///opt/concourse/worker/volumes/live/5c1221e3-9d1d-4a47-4706-4be28549d7d0/volume/anaconda-client_1635342564935/work
-anaconda-project @ file:///tmp/build/80754af9/anaconda-project_1637161053845/work
+anaconda-client 
+anaconda-project
 anyio @ file:///opt/concourse/worker/volumes/live/4ff95164-2ca6-4efb-5c02-5afee907620d/volume/anyio_1617783322708/work/dist
 appdirs==1.4.4
 applaunchservices @ file:///Users/ktietz/demo/mc3/conda-bld/applaunchservices_1630511705208/work
@@ -83,7 +83,6 @@ importlib-metadata @ file:///opt/concourse/worker/volumes/live/6e6ff5a0-f7a2-4c1
 inflection==0.5.1
 iniconfig @ file:///home/linux1/recipes/ci/iniconfig_1610983019677/work
 intervaltree @ file:///Users/ktietz/demo/mc3/conda-bld/intervaltree_1630511889664/work
-ipykernel @ file:///opt/concourse/worker/volumes/live/ee8433fe-cc9b-44e9-5a1b-fa2fa242a287/volume/ipykernel_1633545427588/work/dist/ipykernel-6.4.1-py3-none-any.whl
 ipython @ file:///opt/concourse/worker/volumes/live/4f59a646-357b-46a9-5853-fe226d6346b8/volume/ipython_1635944180000/work
 ipython-genutils @ file:///tmp/build/80754af9/ipython_genutils_1606773439826/work
 ipywidgets @ file:///tmp/build/80754af9/ipywidgets_1634143127070/work
