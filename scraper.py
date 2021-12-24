@@ -229,8 +229,6 @@ if __name__ == '__main__':
         all_challenge_info['change_log'] = changes_found
         #saving_json(resources_dir, all_challenge_info)
     subject, text, html = generate_text(changes_found, all_challenge_info)
-    print(text)
-    print(html)
     send_email(subject, text, html)
     
 
