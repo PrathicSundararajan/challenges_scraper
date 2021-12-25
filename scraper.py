@@ -221,8 +221,9 @@ def send_email(subject, text, html):
   server.quit()
 
 if __name__ == '__main__':
-    resources_dir = 'resources/'
-    path_config = "config.ini"
+    outside_dir = 'home/ubuntu/challenges_scraper/'
+    resources_dir = outside_dir + 'resources/'
+    path_config = outside_dir + "config.ini"
     all_challenge_info = scrape_info(printed = False)    
     all_old_files = reading_old_files(resources_dir)
     old_challenges, old_challenge_file = getting_old_challenges(all_old_files, resources_dir)
